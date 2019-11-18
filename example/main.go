@@ -13,10 +13,10 @@
 
 package main
 import (
-	"gitee.com/ZR233/bsf"
-	"gitee.com/ZR233/bsf/example/controller"
-	_ "gitee.com/ZR233/bsf/example/docs"
-	"gitee.com/ZR233/bsf/example/middleware"
+	"github.com/ZR233/bsf"
+	"github.com/ZR233/bsf/example/controller"
+	_ "github.com/ZR233/bsf/example/docs"
+	"github.com/ZR233/bsf/example/middleware"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 )

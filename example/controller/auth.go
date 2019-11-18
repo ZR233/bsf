@@ -15,7 +15,7 @@ package controller
 
 import (
 	"errors"
-	"gitee.com/ZR233/bsf/controller"
+	"github.com/ZR233/bsf/controller"
 )
 
 type Auth struct {

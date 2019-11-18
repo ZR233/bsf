@@ -15,7 +15,7 @@ package bsf
 
 import (
 	"fmt"
-	"gitee.com/ZR233/bsf/controller"
+	"github.com/ZR233/bsf/controller"
 	"github.com/gin-gonic/gin"
 	"reflect"
 	"regexp"
