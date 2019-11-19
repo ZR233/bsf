@@ -14,7 +14,7 @@
 package bsf
 
 import (
-	con "gitee.com/ZR233/bsf/controller"
+	con "github.com/ZR233/bsf/controller"
 	"github.com/gin-gonic/gin"
 	"reflect"
 	"testing"

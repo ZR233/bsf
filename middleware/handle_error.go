@@ -11,21 +11,4 @@
  *    See the Mulan PSL v1 for more details.
  */
 
-package bsf
-
-import (
-	"github.com/ZR233/bsf/middleware"
-	"github.com/gin-gonic/gin"
-)
-
-func NewEngine() *Engine {
-	r := &Engine{
-		gin.New(),
-	}
-	return r
-}
-func NewDefaultEngine() *Engine {
-	r := NewEngine()
-	r.Use(middleware.Recover())
-	return r
-}
+package middleware

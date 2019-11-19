@@ -11,21 +11,25 @@
  *    See the Mulan PSL v1 for more details.
  */
 
-package bsf
+package middleware
 
 import (
-	"github.com/ZR233/bsf/middleware"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
-func NewEngine() *Engine {
-	r := &Engine{
-		gin.New(),
+func Recover() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		defer func() {
+			if p := recover(); p != nil {
+				if err, ok := p.(error); ok {
+					_ = context.Error(err)
+				} else {
+					_ = context.Error(fmt.Errorf("%s", p))
+
+				}
+			}
+		}()
+		context.Next()
 	}
-	return r
-}
-func NewDefaultEngine() *Engine {
-	r := NewEngine()
-	r.Use(middleware.Recover())
-	return r
 }
