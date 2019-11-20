@@ -11,10 +11,13 @@
  *    See the Mulan PSL v1 for more details.
  */
 
-package bsf
+package errors
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
 	ErrController = errors.New("controller error")
+	ErrParam      = errors.New("param error")
 )

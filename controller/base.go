@@ -14,7 +14,11 @@
 package controller
 
 import (
+	"fmt"
+	"github.com/ZR233/bsf/errors"
 	"github.com/gin-gonic/gin"
+	"strconv"
+	"time"
 )
 
 type Controller interface {
@@ -42,3 +46,66 @@ func (b Base) BsfHandleErrorDoNotUseThisMethod(err error) {
 }
 
 type Handler func() error
+
+func (b *Base) PostForm(key string, must bool) (value string, err error) {
+	value = b.ctx.PostForm(key)
+	if must && value == "" {
+		err = fmt.Errorf("%w: [%s]is empty", errors.ErrParam, key)
+	}
+	return
+}
+
+func (b *Base) PostFormInt(key string, must bool) (value *int, err error) {
+
+	valueStr, err := b.PostForm(key, must)
+	if err != nil {
+		return
+	}
+	if valueStr == "" {
+		return
+	}
+	valueInt, err := strconv.Atoi(valueStr)
+	if err != nil {
+		err = fmt.Errorf("%w: [%s](%s)is not int", errors.ErrParam, key, valueStr)
+		return
+	}
+	value = &valueInt
+	return
+}
+func (b *Base) PostFormTime(key, format string, must bool) (value *time.Time, err error) {
+
+	valueStr, err := b.PostForm(key, must)
+	if err != nil {
+		return
+	}
+	if valueStr == "" {
+		return
+	}
+
+	valueTime, err := time.Parse(format, valueStr)
+	if err != nil {
+		err = fmt.Errorf("%w: [%s](%s)time cannot match format[%s]", errors.ErrParam, key, valueStr, format)
+		return
+	}
+	value = &valueTime
+	return
+}
+
+func (b *Base) PostFormFloat64(key string, must bool) (value *float64, err error) {
+
+	valueStr, err := b.PostForm(key, must)
+	if err != nil {
+		return
+	}
+	if valueStr == "" {
+		return
+	}
+
+	valueF, err := strconv.ParseFloat(valueStr, 64)
+	if err != nil {
+		err = fmt.Errorf("%w: [%s](%s)is not float", errors.ErrParam, key, valueStr)
+		return
+	}
+	value = &valueF
+	return
+}

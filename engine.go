@@ -16,6 +16,7 @@ package bsf
 import (
 	"fmt"
 	"github.com/ZR233/bsf/controller"
+	"github.com/ZR233/bsf/errors"
 	"github.com/gin-gonic/gin"
 	"reflect"
 	"regexp"
@@ -149,7 +150,7 @@ func parseController(controllerPtr controller.Controller) (result map[string]gin
 	name = namePath[1]
 
 	if !controllerFieldOk(valueOfControllerPtr) {
-		panic(fmt.Errorf("%w: [%s] did not have Base controller pointer member", ErrController, name))
+		panic(fmt.Errorf("%w: [%s] did not have Base controller pointer member", errors.ErrController, name))
 	}
 
 	num := typeOfControllerPtr.NumMethod()
@@ -166,7 +167,7 @@ func parseController(controllerPtr controller.Controller) (result map[string]gin
 			continue
 		}
 		if !isControllerFunc(valueOfControllerPtr.Method(i)) {
-			panic(fmt.Errorf("%w: class [%s] method [%s] format error", ErrController, namePath, methodName))
+			panic(fmt.Errorf("%w: class [%s] method [%s] format error", errors.ErrController, namePath, methodName))
 		}
 
 		methodPath := name + "/" + methodName
