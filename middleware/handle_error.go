@@ -12,3 +12,22 @@
  */
 
 package middleware
+
+import (
+	"github.com/gin-gonic/gin"
+)
+
+type ErrorHandler func(err error)
+
+func HandleError(handler ErrorHandler) gin.HandlerFunc {
+	return func(context *gin.Context) {
+		defer func() {
+			if len(context.Errors) > 0 {
+				err := context.Errors[0].Err
+				handler(err)
+			}
+		}()
+
+		context.Next()
+	}
+}
