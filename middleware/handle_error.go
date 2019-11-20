@@ -25,6 +25,7 @@ func HandleError(handler ErrorHandler) gin.HandlerFunc {
 			if len(context.Errors) > 0 {
 				err := context.Errors[0].Err
 				handler(err)
+				context.Abort()
 			}
 		}()
 
