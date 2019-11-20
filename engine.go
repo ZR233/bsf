@@ -158,6 +158,10 @@ func parseController(controllerPtr controller.Controller) (result map[string]gin
 	excludeMethods := map[string]bool{
 		"GetContext":                       true,
 		"BsfHandleErrorDoNotUseThisMethod": true,
+		"PostForm":                         true,
+		"PostFormInt":                      true,
+		"PostFormTime":                     true,
+		"PostFormFloat64":                  true,
 	}
 
 	for i := 0; i < num; i++ {
