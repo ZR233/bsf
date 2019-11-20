@@ -120,12 +120,13 @@ func ginHandlerFunc(context *gin.Context, typeOfControllerPtr reflect.Type, meth
 	in := make([]reflect.Value, 0)
 
 	values := valueOfControllerPtr.Method(methodIter).Call(in)
-	e := values[0].Interface().(error)
-	if e != nil {
-		_ = context.Error(e)
+	if !values[0].IsNil() {
+		e := values[0].Interface().(error)
+		if e != nil {
+			_ = context.Error(e)
+		}
+		base.BsfHandleErrorDoNotUseThisMethod(e)
 	}
-
-	base.BsfHandleErrorDoNotUseThisMethod(e)
 }
 
 func parseController(controllerPtr controller.Controller) (result map[string]gin.HandlerFunc) {
