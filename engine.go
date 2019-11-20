@@ -30,8 +30,13 @@ type Engine struct {
 自动注册controller类的所有公有方法
 路由地址为 relativePath/controller名/方法名
 */
-func (e *Engine) AutoRegisterController(relativePath string, controllerPtr controller.Controller) *Engine {
-	autoRegisterControllerToIRoutes(e, relativePath, controllerPtr)
+func (e *Engine) AutoRegisterControllers(relativePath string, controllerPtr ...controller.Controller) *Engine {
+	if len(controllerPtr) > 0 {
+		for _, ptr := range controllerPtr {
+			autoRegisterControllerToIRoutes(e, relativePath, ptr)
+		}
+	}
+
 	return e
 }
 
@@ -45,8 +50,12 @@ func (e *Engine) Group(relativePath string, handlers ...gin.HandlerFunc) *Group 
 自动注册controller类的所有公有方法
 路由地址为 relativePath/controller名/方法名
 */
-func (r *Group) AutoRegisterController(relativePath string, controllerPtr controller.Controller) *Group {
-	autoRegisterControllerToIRoutes(r, relativePath, controllerPtr)
+func (r *Group) AutoRegisterControllers(relativePath string, controllerPtr ...controller.Controller) *Group {
+	if len(controllerPtr) > 0 {
+		for _, ptr := range controllerPtr {
+			autoRegisterControllerToIRoutes(r, relativePath, ptr)
+		}
+	}
 	return r
 }
 
